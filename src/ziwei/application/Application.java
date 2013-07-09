@@ -1,4 +1,4 @@
-package ziwei.intro;
+package ziwei.application;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;

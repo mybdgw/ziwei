@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Application_Name
 Bundle-SymbolicName: ziwei; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: ziwei.Activator
+Bundle-Activator: ziwei.application.Activator
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

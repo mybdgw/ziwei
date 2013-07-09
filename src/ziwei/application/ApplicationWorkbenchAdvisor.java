@@ -1,13 +1,13 @@
-package ziwei.intro;
+package ziwei.application;
 
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+import ziwei.perspectives.PerspectiveFactoryMain;
 
-	private static final String PERSPECTIVE_ID = "ziwei.perspective";
+public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         return new ApplicationWorkbenchWindowAdvisor(configurer);
@@ -19,6 +19,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
     }
 
 	public String getInitialWindowPerspectiveId() {
-		return PERSPECTIVE_ID;
+		return PerspectiveFactoryMain.PERSPECTIVE_ID;
 	}
 }

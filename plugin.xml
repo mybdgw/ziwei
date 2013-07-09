@@ -7,31 +7,23 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="ziwei.intro.Application">
+               class="ziwei.application.Application">
          </run>
       </application>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            name="RCP Perspective"
-            class="ziwei.intro.Perspective"
-            id="ziwei.perspective">
-      </perspective>
    </extension>
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
             application="ziwei.application"
-            name="ZiWei">
+            name="%Application_Name">
          <property
                name="windowImages"
                value="icons/application/ziwei16.png,icons/application/ziwei32.png,icons/application/ziwei48.png,icons/application/ziwei64.png,icons/application/ziwei128.png">
          </property>
          <property
                name="aboutText"
-               value="%product_about">
+               value="%Product_About">
          </property>
          <property
                name="aboutImage"
@@ -51,13 +43,24 @@
          </property>
          <property
                name="appName"
-               value="ZiWei">
+               value="%Application_Name">
          </property>
          <property
                name="preferenceCustomization"
                value="plugin_customization.ini">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandlerProductBinding
+            productId="ziwei.product"
+            splashId="ziwei.splashHandler">
+      </splashHandlerProductBinding>
+      <splashHandler
+            class="ziwei.application.ZiWeiSplashHandler"
+            id="ziwei.splashHandler">
+      </splashHandler>
    </extension>
    <extension
          point="org.eclipse.ui.intro">
@@ -93,5 +96,55 @@
             configId="ziwei.config">
       </configExtension>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="ziwei.perspectives.PerspectiveFactoryMain"
+            icon="icons/perspective_main.png"
+            id="ziwei.perspectives.PerspectiveFactoryMain"
+            name="%Perspective_Main">
+      </perspective>
+      <perspective
+            class="ziwei.perspectives.PerspectiveFactorySecond"
+            icon="icons/perspective_second.png"
+            id="ziwei.perspectives.PerspectiveFactorySecond"
+            name="%Perspective_Second">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <perspectiveShortcut
+               id="ziwei.perspectives.PerspectiveFactoryMain">
+         </perspectiveShortcut>
+         <perspectiveShortcut
+               id="ziwei.perspectives.PerspectiveFactorySecond">
+         </perspectiveShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="ziwei.views.DaYunView"
+            icon="icons/view_dayun.png"
+            id="ziwei.views.DaYunView"
+            name="%View_DaYun"
+            restorable="true">
+      </view>
+      <view
+            class="ziwei.views.LiuNianView"
+            icon="icons/view_liunian.png"
+            id="ziwei.views.LiuNianView"
+            name="%View_LiuNian"
+            restorable="true">
+      </view>
+      <view
+            class="ziwei.views.TianPanView"
+            icon="icons/view_tianpan.png"
+            id="ziwei.views.TianPanView"
+            name="%View_TianPan"
+            restorable="true">
+      </view>
+   </extension>
 </plugin>
