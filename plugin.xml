@@ -4,10 +4,11 @@
 
    <extension
          id="application"
+         name="ziwei"
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="ziwei.application.Application">
+               class="net.ziwei.application.Application">
          </run>
       </application>
    </extension>
@@ -15,11 +16,11 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="ziwei.application"
+            application="net.ziwei.application"
             name="%Application_Name">
          <property
                name="windowImages"
-               value="icons/application/ziwei16.png,icons/application/ziwei32.png,icons/application/ziwei48.png,icons/application/ziwei64.png,icons/application/ziwei128.png">
+                value="icons/application/ziwei16.png,icons/application/ziwei32.png,icons/application/ziwei48.png,icons/application/ziwei64.png,icons/application/ziwei128.png">
          </property>
          <property
                name="aboutText"
@@ -52,62 +53,34 @@
       </product>
    </extension>
    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.ziwei.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
          point="org.eclipse.ui.splashHandlers">
-      <splashHandlerProductBinding
-            productId="ziwei.product"
-            splashId="ziwei.splashHandler">
-      </splashHandlerProductBinding>
       <splashHandler
-            class="ziwei.application.ZiWeiSplashHandler"
-            id="ziwei.splashHandler">
+            class="net.ziwei.application.ZiWeiSplashHandler"
+            id="net.ziwei.application.ZiWeiSplashHandler">
       </splashHandler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.intro">
-      <intro
-            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
-            icon="icons/application/ziwei16.png"
-            id="ziwei.intro">
-      </intro>
-      <introProductBinding
-            introId="ziwei.intro"
-            productId="ziwei.product">
-      </introProductBinding>
-   </extension>
-   <extension
-         point="org.eclipse.ui.intro.config">
-      <config
-            introId="ziwei.intro"
-            content="introContent.xml"
-            id="ziwei.config">
-         <presentation
-               home-page-id="root">
-            <implementation
-                  kind="html"
-                  os="win32,linux,macosx">
-            </implementation>
-         </presentation>
-      </config>
-   </extension>
-   <extension
-         point="org.eclipse.ui.intro.configExtension">
-      <configExtension
-            content="ext.xml"
-            configId="ziwei.config">
-      </configExtension>
+      <splashHandlerProductBinding
+            productId="net.ziwei.product"
+            splashId="net.ziwei.application.ZiWeiSplashHandler">
+      </splashHandlerProductBinding>
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="ziwei.perspectives.PerspectiveFactoryMain"
-            icon="icons/perspective_main.png"
-            id="ziwei.perspectives.PerspectiveFactoryMain"
-            name="%Perspective_Main">
+            class="net.ziwei.perspectives.PerspectiveFactoryFirst"
+            icon="icons/perspective_first.png"
+            id="net.ziwei.perspectives.PerspectiveFactoryFirst"
+            name="%Perspective_First">
       </perspective>
       <perspective
-            class="ziwei.perspectives.PerspectiveFactorySecond"
+            class="net.ziwei.perspectives.PerspectiveFactorySecond"
             icon="icons/perspective_second.png"
-            id="ziwei.perspectives.PerspectiveFactorySecond"
+            id="net.ziwei.perspectives.PerspectiveFactorySecond"
             name="%Perspective_Second">
       </perspective>
    </extension>
@@ -116,35 +89,186 @@
       <perspectiveExtension
             targetID="*">
          <perspectiveShortcut
-               id="ziwei.perspectives.PerspectiveFactoryMain">
+               id="net.ziwei.perspectives.PerspectiveFactoryFirst">
          </perspectiveShortcut>
          <perspectiveShortcut
-               id="ziwei.perspectives.PerspectiveFactorySecond">
-         </perspectiveShortcut>
+               id="net.ziwei.perspectives.PerspectiveFactorySecond">
+         </perspectiveShortcut> 
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="net.ziwei.perspectives.PerspectiveFactoryFirst">
+         <viewShortcut
+               id="net.ziwei.views.TianPanView">
+         </viewShortcut>
+         <viewShortcut
+               id="net.ziwei.views.DaYunView">
+         </viewShortcut>
+         <viewShortcut
+               id="net.ziwei.views.LiuNianView">
+         </viewShortcut>
+      </perspectiveExtension>
+            <perspectiveExtension
+            targetID="net.ziwei.perspectives.PerspectiveFactorySecond">
+         <viewShortcut
+               id="net.ziwei.views.DaYunView">
+         </viewShortcut>
+         <viewShortcut
+               id="net.ziwei.views.LiuNianView">
+         </viewShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.ziwei.preferences.PrefPageGeneral"
+            id="net.ziwei.preferences.PrefPageGeneral"
+            name="%Preference_Page_General">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:help?after=helpStart">
+         <separator
+               name="net.ziwei.separator"
+               visible="true">
+         </separator>
+         <command
+               commandId="net.ziwei.handlers.ActionHandlerOpenHomePage"
+               icon="icons/command-open-home-page.png"
+               label="%Command_Open_Home_Page"
+               style="push">
+         </command>
+         <command
+               commandId="net.ziwei.handlers.ActionHandlerOpenForum"
+               icon="icons/command-open-forum.png"
+               label="%Command_Open_Forum"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.views.showView"
+               icon="icons/command-error-log.gif"
+               label="%Command_Error_View"
+               style="push">
+            <parameter
+                  name="org.eclipse.ui.views.showView.viewId"
+                  value="org.eclipse.pde.runtime.LogView">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="net.ziwei.toolbars.general">
+	        <command
+	              commandId="org.eclipse.ui.views.showView"
+	              icon="icons/view_tianpan.png"
+	              label="%View_TianPan"
+	              style="push">
+	           <parameter
+	                 name="org.eclipse.ui.views.showView.viewId"
+	                 value="net.ziwei.views.TianPanView">
+	           </parameter>
+	        </command>
+	        <command
+	              commandId="org.eclipse.ui.views.showView"
+	              icon="icons/view_dayun.png"
+	              label="%View_DaYun"
+	              style="push">
+	           <parameter
+	                 name="org.eclipse.ui.views.showView.viewId"
+	                 value="net.ziwei.views.DaYunView">
+	           </parameter>
+	        </command>
+	        <command
+	              commandId="org.eclipse.ui.views.showView"
+	              icon="icons/view_liunian.png"
+	              label="%View_LiuNian"
+	              style="push">
+	           <parameter
+	                 name="org.eclipse.ui.views.showView.viewId"
+	                 value="net.ziwei.views.LiuNianView">
+	           </parameter>
+	        </command>
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  icon="icons/command-general-preferences.gif"
+                  label="%Command_General_Preferences"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.trim.status">
+         <toolbar
+               id="net.ziwei.statusline.timeinfo">
+            <control
+                  class="net.ziwei.statusline.TimeInfoContribution"
+                  id="net.ziwei.statusline.TimeInfoContribution">
+            </control>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="net.ziwei.handlers.ActionHandlerOpenHomePage"
+            defaultHandler="net.ziwei.handlers.ActionHandlerOpenHomePage"
+            name="%Command_Open_Home_Page">
+      </command>
+
+      <command
+            defaultHandler="net.ziwei.handlers.ActionHandlerOpenForum"
+            id="net.ziwei.handlers.ActionHandlerOpenForum"
+            name="%Command_Open_Forum">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="ziwei.views.DaYunView"
+            class="net.ziwei.views.DaYunView"
             icon="icons/view_dayun.png"
-            id="ziwei.views.DaYunView"
-            name="%View_DaYun"
-            restorable="true">
+            id="net.ziwei.views.DaYunView"
+            name="%View_DaYun">
       </view>
       <view
-            class="ziwei.views.LiuNianView"
-            icon="icons/view_liunian.png"
-            id="ziwei.views.LiuNianView"
-            name="%View_LiuNian"
-            restorable="true">
-      </view>
-      <view
-            class="ziwei.views.TianPanView"
+            class="net.ziwei.views.TianPanView"
             icon="icons/view_tianpan.png"
-            id="ziwei.views.TianPanView"
-            name="%View_TianPan"
-            restorable="true">
+            id="net.ziwei.views.TianPanView"
+            name="%View_TianPan">
       </view>
+      <view
+            class="net.ziwei.views.LiuNianView"
+            icon="icons/view_liunian.png"
+            id="net.ziwei.views.LiuNianView"
+            name="%View_LiuNian">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro">
+      <introProductBinding
+            introId="net.ziwei.intro"
+            productId="net.ziwei.product">
+      </introProductBinding>
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            icon="icons/command-intro.png"
+            id="net.ziwei.intro">
+      </intro>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            content="introContent.xml"
+            id="net.ziwei.intro.config"
+            introId="net.ziwei.intro">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html"
+                  os="win32,linux,macosx">
+            </implementation>
+         </presentation>
+      </config>
    </extension>
 </plugin>
