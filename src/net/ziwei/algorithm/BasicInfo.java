@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import net.ziwei.algorithm.biao.LiuShiJiaZiBiao;
+import net.ziwei.algorithm.biao.MingShenZhuBiao;
 import net.ziwei.algorithm.biao.ShiChenBiao;
 
 //基本信息
@@ -14,14 +15,17 @@ public class BasicInfo {
 	int month;				 //月
 	int day;				 //日
 	int hour;				 //时
-	String tianGan;			 //年份天干
-	String diZhi;			 //年份地支
-	String shiChen;          //时辰
+	int tianGan;			 //生年天干
+	int diZhi;			     //生年地支
+	int shiChen;             //时辰
 	int age;				 //阴历年龄
 	public int sex;          //性别，0是男，1是女
 	public int yinYang;      //阴阳,0是阳，1是阴
-	public String wuXingJu;  //五行局
+	public String wuXing;    //五行局
+	public int wuXingNum;    //五行对应的起始年
 	public int daXian;       //大限
+	public String mingZhu;   //命主
+	public String shenZhu;   //身主
 	
 	public BasicInfo(Date birthday, int s){
 		Calendar calendar = Calendar.getInstance();
@@ -42,20 +46,25 @@ public class BasicInfo {
 		tianGan = LiuShiJiaZiBiao.getTianGanByYear(year);
 		diZhi = LiuShiJiaZiBiao.getDiZhiByYear(year);
 		yinYang = LiuShiJiaZiBiao.getYinYangByYear(year);
+		
+		mingZhu = MingShenZhuBiao.mingZhuBiao[diZhi];
+		shenZhu = MingShenZhuBiao.shenZhuBiao[diZhi];
 	}
 	
 	public String toString(){
 		String str = "年:"+year+"\n" +
-					 "月（显示时加1）:"+month+"\n" +
+					 "月（显示时加1）:"+(month+1)+"\n" +
 					 "日:"+day+"\n" +
 					 "时:"+hour+"\n" +
 					 "年龄:"+age+"\n" + 
-					 "天干:"+tianGan+"\n" + 
-					 "地支:"+diZhi+"\n" + 
-					 "时辰:"+shiChen+"\n" + 
+					 "天干:"+Pan.tianGanTable[tianGan]+"\n" + 
+					 "地支:"+Pan.diZhiTable[diZhi]+"\n" + 
+					 "时辰:"+Pan.diZhiTable[shiChen]+"\n" + 
 					 "性别:"+(sex == 0?"男":"女")+"\n" + 
 		 			 "阴阳:"+(yinYang == 0?"阳":"阴")+"\n" +
-					 "五行局:"+wuXingJu+"\n";
+					 "五行局:"+wuXing+wuXingNum+"局\n" + 
+					 "命主:"+mingZhu+"\n" + 
+					 "身主:"+shenZhu+"\n";
 		return str;
 	}
 }
