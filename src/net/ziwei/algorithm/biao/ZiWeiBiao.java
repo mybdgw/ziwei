@@ -1,5 +1,5 @@
 package net.ziwei.algorithm.biao;
-
+/*根据五行局数和出生日定紫微星宫位，横轴五行局，纵轴出生日*/
 public class ZiWeiBiao {
 	public static int[][] ziWeiBiao = {{1,4,11,6,9},
 		                               {2,1,4,11,6},
@@ -31,8 +31,4 @@ public class ZiWeiBiao {
 		                               {3,1,8,9,8},
 		                               {3,10,6,6,5},
 		                               {4,11,11,7,6}};
-	/*根据五行局数和出生日定紫微星宫位，横轴五行局，纵轴出生日*/
-	public static int getZiWeiByWuXingAndDay(int wuxingnum, int day){
-		return ziWeiBiao[day-1][wuxingnum-2];
-	}
 }

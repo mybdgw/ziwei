@@ -57,9 +57,9 @@ public class BasicInfo {
 					 "日:"+day+"\n" +
 					 "时:"+hour+"\n" +
 					 "年龄:"+age+"\n" + 
-					 "天干:"+Pan.tianGanTable[tianGan]+"\n" + 
-					 "地支:"+Pan.diZhiTable[diZhi]+"\n" + 
-					 "时辰:"+Pan.diZhiTable[shiChen]+"\n" + 
+					 "天干:"+Pan.tianGan[tianGan]+"\n" + 
+					 "地支:"+Pan.diZhi[diZhi]+"\n" + 
+					 "时辰:"+Pan.diZhi[shiChen]+"\n" + 
 					 "性别:"+(sex == 0?"男":"女")+"\n" + 
 		 			 "阴阳:"+(yinYang == 0?"阳":"阴")+"\n" +
 					 "五行局:"+wuXing+wuXingNum+"局\n" + 
