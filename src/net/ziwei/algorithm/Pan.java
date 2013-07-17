@@ -24,16 +24,17 @@ public class Pan {
 	public BasicInfo basicInfo;
 	public ArrayList<Block> blockList = new ArrayList<Block>();	
 
-	public static String[] tianGan = {"甲","乙","丙","丁","戊","己","庚","辛","壬","癸"};
+	public static final String[] tianGan = {"甲","乙","丙","丁","戊","己","庚","辛","壬","癸"};
 									// 0,  1,   2,  3,  4,  5,  6,  7,   8,  9
-	public static String[] diZhi = {"子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"};
+	public static final String[] diZhi = {"子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"};
 								   //0,  1,  2,   3,  4,   5,  6,  7,  8,  9,   10,  11
-	public static String[] shiErGong = {"父母","福德","田宅","事业","交友","迁移","疾厄","财帛","子女","夫妻","兄弟"};
-	public static String[] changSheng = {"长生","沐浴","冠带","临官","帝旺","衰","病","死","墓","绝","胎","养"};
-	public static String[] boShi = {"博士","力士","青龙","小耗","将军","奏书","蜚廉","喜神","病符","大耗","伏兵","官符"};
-	public static String[] taiSui = {"太岁","晦气","丧门","贯索","官符","小耗","岁破","龙德","白虎","天德","吊客","病符"};
-	
-	public static HashMap<String, Integer> xingMap = new HashMap<String, Integer>();  //星曜名称与对应宫位
+	public static final String[] shiErGong = {"父母","福德","田宅","事业","交友","迁移","疾厄","财帛","子女","夫妻","兄弟"};
+	public static final String[] changSheng = {"长生","沐浴","冠带","临官","帝旺","衰","病","死","墓","绝","胎","养"};
+	public static final String[] boShi = {"博士","力士","青龙","小耗","将军","奏书","蜚廉","喜神","病符","大耗","伏兵","官符"};
+	public static final String[] taiSui = {"太岁","晦气","丧门","贯索","官符","小耗","岁破","龙德","白虎","天德","吊客","病符"};
+	public static final String[] siHua = {"禄","权","科","忌"};
+										 //0    1   2   3
+	public HashMap<String, Yao> xingMap = new HashMap<String, Yao>();  //星曜名称与对应宫位
 
 	int mingGong;  //命宫宫位
 	public int getIndexByDiZhi(String dizhi){
@@ -79,6 +80,10 @@ public class Pan {
 			  index = (mingGong - i + 12)%12;
 			blockList.get(index).startDaXian = basicInfo.wuXingNum + i*10;
 			blockList.get(index).endDaXian = basicInfo.wuXingNum + (i+1)*10 - 1;
+			int age = basicInfo.age;
+			if(blockList.get(index).startDaXian <= age && blockList.get(index).endDaXian >= age){
+				basicInfo.daXian = blockList.get(index).gongZhi;
+			}
 		}
 		//安紫微星
 		int ziWei = ZiWeiBiao.ziWeiBiao[basicInfo.day-1][basicInfo.wuXingNum-2];
@@ -110,20 +115,20 @@ public class Pan {
 		blockList.get(qiSha).zhengYaoList.add("七杀");
 		int poJun = ZhengXingBiao.poJunBiao[ziWei];
 		blockList.get(poJun).zhengYaoList.add("破军");
-		xingMap.put("紫微", ziWei);
-		xingMap.put("天机", tianJi);
-		xingMap.put("太阳", taiYang);
-		xingMap.put("武曲", wuQu);
-		xingMap.put("天同", tianTong);
-		xingMap.put("廉贞", lianZhen);
-		xingMap.put("天府", tianFu);
-		xingMap.put("太阴", taiYin);
-		xingMap.put("贪狼", tanLang);
-		xingMap.put("巨门", juMen);		
-		xingMap.put("天相", tianXiang);
-		xingMap.put("天梁", tianLiang);
-		xingMap.put("七杀", qiSha);
-		xingMap.put("破军", poJun);		
+		xingMap.put("紫微", new Yao(ziWei));
+		xingMap.put("天机", new Yao(tianJi));
+		xingMap.put("太阳", new Yao(taiYang));
+		xingMap.put("武曲", new Yao(wuQu));
+		xingMap.put("天同", new Yao(tianTong));
+		xingMap.put("廉贞", new Yao(lianZhen));
+		xingMap.put("天府", new Yao(tianFu));
+		xingMap.put("太阴", new Yao(taiYin));
+		xingMap.put("贪狼", new Yao(tanLang));
+		xingMap.put("巨门", new Yao(juMen));		
+		xingMap.put("天相", new Yao(tianXiang));
+		xingMap.put("天梁", new Yao(tianLiang));
+		xingMap.put("七杀", new Yao(qiSha));
+		xingMap.put("破军", new Yao(poJun));		
 		//安干系诸星
 		int luCun = GanXiZhuXingBiao.luCunBiao[basicInfo.tianGan];
 		blockList.get(luCun).fuYaoList.add("禄存");
@@ -145,11 +150,15 @@ public class Pan {
 		blockList.get(jieKong1).zaYaoList.add("截空");
 		int jieKong2 = GanXiZhuXingBiao.jieKongBiao2[basicInfo.tianGan];
 		blockList.get(jieKong2).zaYaoList.add("截空");
-		xingMap.put("禄存", luCun);
-		xingMap.put("陀罗", tuoLuo);
-		xingMap.put("擎羊", qingYang);
-		xingMap.put("天魁", tianKui);	
-		xingMap.put("天钺", tianYue);	
+		xingMap.put("禄存", new Yao(luCun));
+		Yao tuo = new Yao(tuoLuo);
+		tuo.siSha = 3;
+		xingMap.put("陀罗", tuo);
+		Yao qing = new Yao(qingYang);
+		qing.siSha = 2;
+		xingMap.put("擎羊", qing);
+		xingMap.put("天魁", new Yao(tianKui));	
+		xingMap.put("天钺", new Yao(tianYue));	
 		//安支系诸星
 		int tianMa = ZhiXiZhuXingBiao.tianMaBiao[basicInfo.diZhi];
 		blockList.get(tianMa).fuYaoList.add("天马");
@@ -171,7 +180,7 @@ public class Pan {
 		blockList.get(guChen).zaYaoList.add("孤辰");
 		int guaSu = ZhiXiZhuXingBiao.guaSuBiao[basicInfo.diZhi];
 		blockList.get(guaSu).zaYaoList.add("寡宿");
-		xingMap.put("天马", tianMa);
+		xingMap.put("天马", new Yao(tianMa));
 		//安月系诸星
 		int zuoFu = YueXiZhuXingBiao.zuoFuBiao[basicInfo.month];
 		blockList.get(zuoFu).fuYaoList.add("左辅");
@@ -189,8 +198,8 @@ public class Pan {
 		blockList.get(tianMoon).zaYaoList.add("天月");
 		int yinSha = YueXiZhuXingBiao.yinShaBiao[basicInfo.month];
 		blockList.get(yinSha).zaYaoList.add("阴煞");
-		xingMap.put("左辅", zuoFu);
-		xingMap.put("右弼", youBi);
+		xingMap.put("左辅", new Yao(zuoFu));
+		xingMap.put("右弼", new Yao(youBi));
 		//安年月系诸星
 		int yueDe = ZhiXiZhuXingBiao.yueDeBiao[basicInfo.diZhi];
 		blockList.get(yueDe).zaYaoList.add("月德");
@@ -230,15 +239,19 @@ public class Pan {
 		blockList.get(taiFu).zaYaoList.add("台辅");
 		int fengGao = ShiXiZhuXingBiao.fengGaoBiao[basicInfo.shiChen];
 		blockList.get(fengGao).zaYaoList.add("封诰");
-		xingMap.put("文昌", wenChang);
-		xingMap.put("文曲", wenQu);
+		xingMap.put("文昌", new Yao(wenChang));
+		xingMap.put("文曲", new Yao(wenQu));
 		//安火星铃星
 		int huoXing = ShiXiZhuXingBiao.huoXingBiao[basicInfo.diZhi%4][basicInfo.shiChen];
 		blockList.get(huoXing).fuYaoList.add("火星");
 		int lingXing = ShiXiZhuXingBiao.lingXingBiao[basicInfo.diZhi%4][basicInfo.shiChen];
 		blockList.get(lingXing).fuYaoList.add("铃星");
-		xingMap.put("火星", huoXing);
-		xingMap.put("铃星", lingXing);
+		Yao huo = new Yao(huoXing);
+		huo.siSha = 0;
+		xingMap.put("火星", huo);
+		Yao ling = new Yao(lingXing);
+		ling.siSha = 1;
+		xingMap.put("铃星", ling);
 		//安三台八座
 		int sanTai = (zuoFu + basicInfo.day - 1)%12;
 		blockList.get(sanTai).zaYaoList.add("三台");
@@ -261,18 +274,11 @@ public class Pan {
 		blockList.get(tianShang).zaYaoList.add("天伤");
 		blockList.get(tianShi).zaYaoList.add("天使");
 		//安四化星
-		int huaLu = xingMap.get(SiHuaXingBiao.huaLuBiao[basicInfo.tianGan]);
-		blockList.get(huaLu).siHuaList.add("化禄");
-		int huaQuan = xingMap.get(SiHuaXingBiao.huaQuanBiao[basicInfo.tianGan]);
-		blockList.get(huaQuan).siHuaList.add("化权");
-		int huaKe = xingMap.get(SiHuaXingBiao.huaKeBiao[basicInfo.tianGan]);
-		blockList.get(huaKe).siHuaList.add("化科");
-		int huaJi = xingMap.get(SiHuaXingBiao.huaJiBiao[basicInfo.tianGan]);
-		blockList.get(huaJi).siHuaList.add("化忌");		
-		xingMap.put("化禄", huaLu);
-		xingMap.put("化权", huaQuan);
-		xingMap.put("化科", huaKe);
-		xingMap.put("化忌", huaJi);
+		xingMap.get(SiHuaXingBiao.huaLuBiao[basicInfo.tianGan]).siHua = 0;
+		xingMap.get(SiHuaXingBiao.huaQuanBiao[basicInfo.tianGan]).siHua = 1;
+		xingMap.get(SiHuaXingBiao.huaKeBiao[basicInfo.tianGan]).siHua = 2;
+		xingMap.get(SiHuaXingBiao.huaJiBiao[basicInfo.tianGan]).siHua = 3;
+
 		//安长生十二神
 		int changShen = 0;
 		String wuXing = basicInfo.wuXing;
@@ -318,9 +324,9 @@ public class Pan {
 	public static void main(String[] args){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
 		try {
-			//Date birthday = formatter.parse("1985:12:11 05:00:00");	
-			Date birthday = formatter.parse("1987:9:15 05:00:00");
-			Pan pan = new Pan(birthday, 0);
+			Date birthday = formatter.parse("1985:12:11 05:00:00");	
+			//Date birthday = formatter.parse("1987:9:15 05:00:00");
+			Pan pan = new Pan(birthday, 1);
 			System.out.println(pan.basicInfo);
 			for(int i=0; i<pan.blockList.size(); i++){
 				System.out.println(pan.blockList.get(i));

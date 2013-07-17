@@ -12,7 +12,6 @@ public class Block{
 	public List<String> zhengYaoList = new ArrayList<String>();    //正星
 	public List<String> fuYaoList = new ArrayList<String>(); //辅星
 	public List<String> zaYaoList = new ArrayList<String>(); //杂星
-	public List<String> siHuaList = new ArrayList<String>(); //四化星
 	public String changShengShen;  //长生十二神
 	public String boShiShen;       //博士十二神
 	public String taiSuiShen;      //太岁十二神
@@ -34,10 +33,6 @@ public class Block{
 		 str += "\n杂曜:";
 		 for(int i=0; i<zaYaoList.size(); i++){
 			 str += zaYaoList.get(i)+" ";
-		 }
-		 str += "\n四化星:";
-		 for(int i=0; i<siHuaList.size(); i++){
-			 str += siHuaList.get(i)+" ";
 		 }
 		 str += "\n长生十二神:" +changShengShen +"\n" +
 				 "博士十二神:" +boShiShen +"\n" +

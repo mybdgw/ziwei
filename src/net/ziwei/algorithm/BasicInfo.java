@@ -11,21 +11,23 @@ import net.ziwei.algorithm.biao.ShiChenBiao;
 public class BasicInfo {
 	public Date yangLi;      //阳历生日，暂时不可用
 	public Date yinLi;       //阴历生日
-	int year;				 //年
-	int month;				 //月
-	int day;				 //日
-	int hour;				 //时
-	int tianGan;			 //生年天干
-	int diZhi;			     //生年地支
-	int shiChen;             //时辰
-	int age;				 //阴历年龄
+	public int year;		 //年
+	public int month;		 //月
+	public int day;			 //日
+	public int hour;		 //时
+	public int tianGan;		 //生年天干
+	public int diZhi;		 //生年地支
+	public int shiChen;      //时辰
+	public int age;			 //阴历年龄
 	public int sex;          //性别，0是男，1是女
 	public int yinYang;      //阴阳,0是阳，1是阴
 	public String wuXing;    //五行局
 	public int wuXingNum;    //五行对应的起始年
-	public int daXian;       //大限
+	public int daXian;       //大限宫支
 	public String mingZhu;   //命主
 	public String shenZhu;   //身主
+	public int nowTianGan;   //当年天干
+	public int nowDiZhi;     //当年地支
 	
 	public BasicInfo(Date birthday, int s){
 		Calendar calendar = Calendar.getInstance();
@@ -41,7 +43,7 @@ public class BasicInfo {
 		calendar.setTime(curDate);
 		int curYear = calendar.get(Calendar.YEAR);
 		age = curYear - year + 1;
-		
+
 		shiChen = ShiChenBiao.getShiChenByHour(hour);
 		tianGan = LiuShiJiaZiBiao.getTianGanByYear(year);
 		diZhi = LiuShiJiaZiBiao.getDiZhiByYear(year);
@@ -49,6 +51,8 @@ public class BasicInfo {
 		
 		mingZhu = MingShenZhuBiao.mingZhuBiao[diZhi];
 		shenZhu = MingShenZhuBiao.shenZhuBiao[diZhi];
+		nowTianGan = LiuShiJiaZiBiao.getTianGanByYear(curYear);
+		nowDiZhi = LiuShiJiaZiBiao.getDiZhiByYear(curYear);
 	}
 	
 	public String toString(){
