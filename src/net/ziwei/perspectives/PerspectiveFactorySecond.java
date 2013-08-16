@@ -31,8 +31,8 @@ public class PerspectiveFactorySecond implements IPerspectiveFactory {
 				IPageLayout.RIGHT,
 				0.5f,
 				IPageLayout.ID_EDITOR_AREA);
-
-		rightFolder.addView(LiuNianView.ID);
 		rightFolder.addView(DaYunView.ID);
+		rightFolder.addView(LiuNianView.ID);
+		
 	}
 }

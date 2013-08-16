@@ -3,7 +3,7 @@ package net.ziwei.algorithm.biao;
 public class GanXiZhuXingBiao {
 	public static int[] luCunBiao =   {2,3,5,6,5,6,8,9,11,0};
 	public static int[] qingYangBiao = {3,4,6,7,6,7,9,10,0,1};
-	public static int[] tuoLuoBiao =  {1,2,11,5,11,5,7,8,10,11};
+	public static int[] tuoLuoBiao =  {1,2,4,5,4,5,7,8,10,11};
 	public static int[] tianKuiBiao = {1,0,11,11,1,0,1,6,3,3};
 	public static int[] tianYueBiao = {7,8,9,9,7,8,7,2,5,5};
 	public static int[] tianGuanBiao ={7,4,5,2,3,9,11,9,10,6};

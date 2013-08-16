@@ -15,12 +15,16 @@ public class Block{
 	public String changShengShen;  //长生十二神
 	public String boShiShen;       //博士十二神
 	public String taiSuiShen;      //太岁十二神
+	public String jiangQianShen;   //将前十二神
 	
+	public String daYunShiErGong;  //大运十二宫
+	public List<String> yunYaoList =  new ArrayList<String>();  //运曜
 	
 	public String toString(){
-		 String str = "宫干:"+Pan.tianGan[gongGan]+"\n" +
-				      "宫支:"+Pan.diZhi[gongZhi]+"\n" +
+		 String str = "宫干:"+getGongGan()+"\n" +
+				      "宫支:"+getGongZhi()+"\n" +
 			          "十二宫:"+shiErGong+"\n" +
+			          "大限十二宫:"+daYunShiErGong+"\n" +
 			          "大限:"+startDaXian+"-"+endDaXian +"\n" +
 			          "正曜:";
 		 for(int i=0; i<zhengYaoList.size(); i++){
@@ -36,7 +40,19 @@ public class Block{
 		 }
 		 str += "\n长生十二神:" +changShengShen +"\n" +
 				 "博士十二神:" +boShiShen +"\n" +
-				 "太岁十二神:" +taiSuiShen +"\n";
+				 "太岁十二神:" +taiSuiShen +"\n";		
+		 str += "运曜:";
+		 for(int i=0; i<yunYaoList.size(); i++){
+			 str += yunYaoList.get(i)+" ";
+		 }
+		 str += "\n";
 		 return str;
+	}
+	
+	public String getGongGan(){
+		return Pan.tianGan[gongGan];
+	}
+	public String getGongZhi(){
+		return Pan.diZhi[gongZhi];
 	}
 }

@@ -29,7 +29,7 @@ public class BasicInfo {
 	public int nowTianGan;   //当年天干
 	public int nowDiZhi;     //当年地支
 	
-	public BasicInfo(Date birthday, int s){
+	public BasicInfo(Date birthday, int s, int curYear){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(birthday);
 		yinLi = birthday;
@@ -38,10 +38,7 @@ public class BasicInfo {
 		day = calendar.get(Calendar.DAY_OF_MONTH);  
 		hour = calendar.get(Calendar.HOUR_OF_DAY); 
 		sex = s;
-		
-		Date curDate = new Date(System.currentTimeMillis());
-		calendar.setTime(curDate);
-		int curYear = calendar.get(Calendar.YEAR);
+
 		age = curYear - year + 1;
 
 		shiChen = ShiChenBiao.getShiChenByHour(hour);
@@ -61,14 +58,53 @@ public class BasicInfo {
 					 "日:"+day+"\n" +
 					 "时:"+hour+"\n" +
 					 "年龄:"+age+"\n" + 
-					 "天干:"+Pan.tianGan[tianGan]+"\n" + 
-					 "地支:"+Pan.diZhi[diZhi]+"\n" + 
-					 "时辰:"+Pan.diZhi[shiChen]+"\n" + 
-					 "性别:"+(sex == 0?"男":"女")+"\n" + 
-		 			 "阴阳:"+(yinYang == 0?"阳":"阴")+"\n" +
+					 "天干:"+getTianGan()+"\n" + 
+					 "地支:"+getDiZhi()+"\n" + 
+					 "时辰:"+getShiChen()+"\n" + 
+					 "性别:"+getSex()+"\n" + 
+		 			 "阴阳:"+getYinYang()+"\n" +
 					 "五行局:"+wuXing+wuXingNum+"局\n" + 
 					 "命主:"+mingZhu+"\n" + 
-					 "身主:"+shenZhu+"\n";
+					 "身主:"+shenZhu+"\n" +
+					 "大限:"+daXian+"\n";
 		return str;
+	}
+	
+	public String getTianGan(){
+		return Pan.tianGan[tianGan];
+	}
+	
+	public String getDiZhi(){
+		return Pan.diZhi[diZhi];
+	}
+	
+	public String getNowTianGan(){
+		return Pan.tianGan[nowTianGan];
+	}
+	
+	public String getNowDiZhi(){
+		return Pan.diZhi[nowDiZhi];
+	}
+	
+	public String getShiChen(){
+		return Pan.diZhi[shiChen];
+	}
+	
+	public String getSex(){
+		return sex == 0?"男":"女";
+	}
+	
+	public String getYinYang(){
+		return yinYang == 0?"阳":"阴";
+	}
+	
+	public String getWuXingJuNum(){
+		String num = "";
+		if(wuXingNum == 2) num = "二";
+		else if(wuXingNum == 3) num = "三";
+		else if(wuXingNum == 4) num = "四";
+		else if(wuXingNum == 5) num = "五";
+		else if(wuXingNum == 6) num = "六";
+		return num;
 	}
 }

@@ -1,13 +1,20 @@
 package net.ziwei.views;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import net.ziwei.algorithm.Pan;
+import net.ziwei.ui.DaYunCanvas;
+
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 public class DaYunView extends ViewPart {
-
+	DaYunCanvas daYunCanvas;
+	
 	public static final String ID = "net.ziwei.views.DaYunView"; 
 
 	public DaYunView() {
@@ -19,7 +26,16 @@ public class DaYunView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NONE);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+		try {
+			Date birthday = formatter.parse("1985:12:11 05:00:00");
+			Pan pan = new Pan(birthday, 1, 2013);
+			daYunCanvas = new DaYunCanvas(parent, pan);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 
 		createActions();
 		initializeToolBar();

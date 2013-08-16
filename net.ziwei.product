@@ -91,7 +91,6 @@
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.intro"/>
-      <plugin id="org.eclipse.ui.views.log"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.smil"/>

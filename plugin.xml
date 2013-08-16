@@ -145,21 +145,21 @@
                label="%Command_Open_Forum"
                style="push">
          </command>
-         <command
-               commandId="org.eclipse.ui.views.showView"
-               icon="icons/command-error-log.gif"
-               label="%Command_Error_View"
-               style="push">
-            <parameter
-                  name="org.eclipse.ui.views.showView.viewId"
-                  value="org.eclipse.pde.runtime.LogView">
-            </parameter>
-         </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
                id="net.ziwei.toolbars.general">
+            <command
+                  commandId="net.ziwei.handlers.ActionHandlerSetup"
+                  icon="icons/command-setup.png"
+                  label="%Command_Setup"
+                  style="push">
+            </command>
+            <separator
+               name="net.ziwei.separator"
+               visible="true">
+        	</separator>
 	        <command
 	              commandId="org.eclipse.ui.views.showView"
 	              icon="icons/view_tianpan.png"
@@ -221,6 +221,11 @@
             defaultHandler="net.ziwei.handlers.ActionHandlerOpenForum"
             id="net.ziwei.handlers.ActionHandlerOpenForum"
             name="%Command_Open_Forum">
+      </command>
+      <command
+            defaultHandler="net.ziwei.handlers.ActionHandlerSetup"
+            id="net.ziwei.handlers.ActionHandlerSetup"
+            name="%Command_Setup">
       </command>
    </extension>
    <extension
